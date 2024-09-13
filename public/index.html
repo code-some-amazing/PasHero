@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PasHero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="app.js" defer></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div id="authContainer" class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6" x-data="{ activeTab: 'login' }">
+            <h1 class="text-3xl font-bold text-center mb-6">PasHero</h1>
+
+            <div class="flex mb-4">
+                <button @click="activeTab = 'login'" :class="{ 'bg-blue-500 text-white': activeTab === 'login', 'bg-gray-200': activeTab !== 'login' }" class="flex-1 py-2 px-4 rounded-l-lg">Login</button>
+                <button @click="activeTab = 'register'" :class="{ 'bg-blue-500 text-white': activeTab === 'register', 'bg-gray-200': activeTab !== 'register' }" class="flex-1 py-2 px-4 rounded-r-lg">Register</button>
+            </div>
+
+            <form id="loginForm" x-show="activeTab === 'login'">
+                <input id="loginUsername" type="text" placeholder="Username" class="w-full p-2 mb-4 border rounded" required>
+                <input id="loginPassword" type="password" placeholder="Password" class="w-full p-2 mb-4 border rounded" required>
+                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Login</button>
+            </form>
+
+            <form id="registerForm" x-show="activeTab === 'register'" x-cloak>
+                <input id="registerUsername" type="text" placeholder="Username" class="w-full p-2 mb-4 border rounded" required>
+                <input id="registerPassword" type="password" placeholder="Password" class="w-full p-2 mb-4 border rounded" required>
+                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Register</button>
+            </form>
+        </div>
+
+        <div id="appContainer" class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 mt-8" style="display: none;" x-data="{ settingsOpen: false }">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold">Password Saver</h1>
+
+                <div class="relative">
+                    <button @click="settingsOpen = !settingsOpen" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </button>
+
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10" x-show="settingsOpen" @click.away="settingsOpen = false" x-cloak>
+                        <button id="logoutBtn" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                        <button id="importBtn" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Import Passwords</button>
+                        <button id="exportBtn" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export Passwords</button>
+                        <button id="deleteAccountBtn" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Delete Account</button>
+                        <a href="mailto:psdev@outlook.in" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Send Report</a>
+                    </div>
+                </div>
+            </div>
+
+            <form id="passwordForm" class="mb-6">
+                <input id="appName" type="text" placeholder="App Name" class="w-full p-2 mb-4 border rounded" required>
+                <input id="username" type="text" placeholder="Username" class="w-full p-2 mb-4 border rounded" required>
+                <input id="password" type="password" placeholder="Password" class="w-full p-2 mb-4 border rounded" required>
+                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Save Password</button>
+            </form>
+
+            <div>
+                <h2 class="text-xl font-semibold mb-4">Saved Passwords</h2>
+                <ul id="passwordList" class="space-y-2"></ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
